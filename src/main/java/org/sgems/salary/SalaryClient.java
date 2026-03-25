@@ -14,6 +14,19 @@ public class SalaryClient {
 
         SalaryMonitoringServiceGrpc.SalaryMonitoringServiceBlockingStub stub =
                 SalaryMonitoringServiceGrpc.newBlockingStub(channel);
+        
+        SalaryStatsRequest statsRequest = SalaryStatsRequest.newBuilder()
+                .setDepartmentId("IT")
+                .build();
+
+        System.out.println("---- Streaming Data ----");        
+        
+        stub.streamSalaryStatistics(statsRequest)
+                .forEachRemaining(stat -> {
+                System.out.println(stat.getMonth() + " - " + stat.getAverageSalary());
+        });
+        
+        System.out.println("---- Unary Response ----");
 
         PayGapRequest request = PayGapRequest.newBuilder()
                 .setDepartmentId("IT")
