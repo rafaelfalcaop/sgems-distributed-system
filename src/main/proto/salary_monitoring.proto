@@ -12,6 +12,8 @@ service SalaryMonitoringService {
 
   rpc UploadSalaryRecords (stream SalaryRecord) returns (UploadStatus);
 
+  rpc LiveSalaryChat (stream ChatMessage) returns (stream ChatMessage);
+
 }
 
 message PayGapRequest {
@@ -43,4 +45,8 @@ message SalaryRecord {
 
 message UploadStatus {
   string status = 1;
+}
+
+message ChatMessage {
+  string message = 1;
 }

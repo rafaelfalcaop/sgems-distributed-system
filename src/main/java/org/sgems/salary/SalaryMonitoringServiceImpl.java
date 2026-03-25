@@ -60,4 +60,32 @@ public class SalaryMonitoringServiceImpl extends SalaryMonitoringServiceGrpc.Sal
 
         responseObserver.onCompleted();
     }
+    
+    @Override
+    public StreamObserver<ChatMessage> liveSalaryChat(StreamObserver<ChatMessage> responseObserver) {
+
+    return new StreamObserver<ChatMessage>() {
+
+        @Override
+        public void onNext(ChatMessage request) {
+            String msg = request.getMessage();
+
+            ChatMessage response = ChatMessage.newBuilder()
+                    .setMessage("Server received: " + msg)
+                    .build();
+
+            responseObserver.onNext(response);
+        }
+
+        @Override
+        public void onError(Throwable t) {
+            System.out.println("Error in chat: " + t.getMessage());
+        }
+
+        @Override
+        public void onCompleted() {
+            responseObserver.onCompleted();
+        }
+    };
+}
 }
