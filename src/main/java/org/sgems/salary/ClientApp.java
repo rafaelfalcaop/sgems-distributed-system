@@ -15,6 +15,8 @@ public class ClientApp {
         SalaryMonitoringServiceGrpc.SalaryMonitoringServiceBlockingStub stub =
                 SalaryMonitoringServiceGrpc.newBlockingStub(channel);
 
+        System.out.println("---- Simple Unary Client ----");
+
         PayGapRequest request = PayGapRequest.newBuilder()
                 .setDepartmentId("IT")
                 .setYear(2025)
@@ -22,9 +24,9 @@ public class ClientApp {
 
         PayGapResponse response = stub.calculatePayGap(request);
 
-        System.out.println("Male Avg: " + response.getAverageMaleSalary());
-        System.out.println("Female Avg: " + response.getAverageFemaleSalary());
-        System.out.println("Gap: " + response.getPayGapPercentage());
+        System.out.println("Male Avg Salary: " + response.getAverageMaleSalary());
+        System.out.println("Female Avg Salary: " + response.getAverageFemaleSalary());
+        System.out.println("Pay Gap: " + response.getPayGapPercentage());
 
         channel.shutdown();
     }
